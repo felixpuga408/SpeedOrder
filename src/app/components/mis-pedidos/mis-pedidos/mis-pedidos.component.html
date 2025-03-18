@@ -1,0 +1,48 @@
+<div *ngIf="pedidos.length > 0">
+  <br/>
+  <br/>
+  <br/>
+  
+  <h2>Mis Pedidos</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Pedido ID</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Total</th>
+        <th>Productos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pedido of pedidos">
+        <td>{{ pedido.id }}</td>
+        <td>{{ pedido.fecha | date }}</td> <!-- Formato de fecha -->
+        <td>{{ pedido.estado }}</td>
+        <td>${{ pedido.total }}</td>
+        <td>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of pedido.productos">
+                <td>{{ producto.producto.nombre }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>${{ producto.producto.precio }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="pedidos.length === 0">
+  <p>No has realizado pedidos aún.</p>
+</div>

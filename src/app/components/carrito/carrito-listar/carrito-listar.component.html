@@ -1,0 +1,74 @@
+<div class="container-fluid mt-3">
+    <h5>Mi Carrito</h5>
+    <hr/>
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Imagen</th>
+                                    <th>Precio ($/)</th>
+                                    <th>Cantidad</th>
+                                    <th>Importe</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listCarrito; let i = index">
+                                    <td>{{ item.producto.nombre }}</td>
+                                    <td><img [src]="'/img/' + item.producto.imagen" width="50" height="60" /></td>
+                                    <td>{{ item.producto.precio | number: '1.2-2' }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <button (click)="cambiarCantidad(i, -1)" class="btn btn-sm btn-outline-secondary">-</button>
+                                            
+                                            <input type="number" class="form-control text-center mx-2" 
+                                                   [(ngModel)]="item.cantidad" 
+                                                   min="1" readonly 
+                                                   style="width: 50px;">
+                                            
+                                            <button (click)="cambiarCantidad(i, 1)" class="btn btn-sm btn-outline-secondary">+</button>
+                                        </div>
+                                    </td>
+                                    <td>{{ (item.producto.precio * item.cantidad) | number: '1.2-2' }}</td>
+                                    <td>
+                                        <button (click)="eliminarItem(i)" type="button" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="listCarrito.length === 0">
+                                    <td colspan="6" class="text-center">No hay productos</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <h5>Resumen Compra</h5>
+                        <hr/>
+                        <div class="d-flex justify-content-between mb-4">
+                            <p class="mb-2">Total</p>
+                            <p class="mb-2">$/{{ carritoService.total() | number: '1.2-2' }}</p>
+                        </div>
+                        <button (click)="realizarPago()" [disabled]="listCarrito.length === 0" type="button" class="btn btn-dark btn-block btn-lg">
+                            <div class="d-flex justify-content-between">
+                                <span>Procesar</span>
+                            </div>
+                            <div id="paypal-button-container"></div> <!-- Aquí se renderiza el botón de PayPal -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

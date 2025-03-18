@@ -1,0 +1,40 @@
+<br/>
+<br/>
+<br/>
+<h2>Gestión de Pedidos</h2>
+<p *ngIf="error" class="error">{{ error }}</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Cliente</th>
+      <th>Productos</th>
+      <th>Total</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pedido of pedidos">
+      <td>{{ pedido.id }}</td>
+      <td>{{ pedido.cliente }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let item of pedido.productos">
+            {{ item.producto.nombre }} (x{{ item.cantidad }})
+          </li>
+        </ul>
+      </td>
+      <td>${{ pedido.total }}</td>
+      <td>
+        <select [(ngModel)]="pedido.estado">
+          <option value="Pendiente">Pendiente</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Entregado">Entregado</option>
+        </select>
+      </td>
+      <td><button (click)="actualizarEstado(pedido)">Actualizar</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,33 @@
+<br/>
+<br/>
+<br/>
+<h2>Gestión de Usuarios</h2>
+<p *ngIf="error" class="error">{{ error }}</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.id }}</td>
+      <td><input type="text" [(ngModel)]="usuario.nombre" /></td>
+      <td><input type="email" [(ngModel)]="usuario.email" /></td>
+      <td><input type="number" [(ngModel)]="usuario.telefono" /></td>
+      <td>
+        <select [(ngModel)]="usuario.rol">
+          <option value="usuario">Usuario</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </td>
+      <td><button (click)="actualizarUsuario(usuario)">Actualizar</button></td>
+    </tr>
+  </tbody>
+</table>

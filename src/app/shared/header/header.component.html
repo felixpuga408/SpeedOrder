@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <div class="container-fluid">
+    <img [src]="'/img/logo.jpeg'" width="120" height="50">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Home Link -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
+        </li>
+        
+        <!-- Mostrar solo si el usuario no está autenticado -->
+        <li *ngIf="!authService.estaAutenticado()" class="nav-item">
+          <a class="nav-link" routerLink="/login">Sign In</a>
+        </li>
+
+        <!-- Mostrar si el usuario está autenticado y no es admin -->
+        <li *ngIf="authService.estaAutenticado() && !authService.esAdmin()" class="nav-item">
+          <a class="nav-link" routerLink="/mis-pedidos">Mis Pedidos</a>
+        </li>
+
+        <!-- Mostrar si el usuario es admin -->
+        <li *ngIf="authService.estaAutenticado() && authService.esAdmin()" class="nav-item">
+          <a class="nav-link" routerLink="/admin/pedidos">Ver Pedidos</a>
+        </li>
+
+        <li *ngIf="authService.estaAutenticado() && authService.esAdmin()" class="nav-item">
+          <a class="nav-link" routerLink="/admin/usuarios">Usuarios Registrados</a>
+        </li>
+
+        <!-- Cerrar sesión -->
+        <li *ngIf="authService.estaAutenticado()" class="nav-item">
+          <a class="nav-link" (click)="cerrarSesion()">Cerrar Sesión</a>
+        </li>
+      </ul>
+
+      <!-- Icono del carrito de compras -->
+      <a class="nav-link text-black" routerLink="/carrito">
+        <i class="fa fa-shopping-cart"></i>(<samp class="fw-bold">{{carritoService.cantidad()}}</samp>)
+      </a>
+    </div>
+  </div>
+</nav>
