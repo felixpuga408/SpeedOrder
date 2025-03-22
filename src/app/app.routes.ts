@@ -12,10 +12,11 @@ import { MisPedidosComponent } from './components/mis-pedidos/mis-pedidos/mis-pe
 export const routes: Routes = [
   { path: '', component: CatalogoInicioComponent },
   { path: 'carrito', component: CarritoListarComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  
   //{ path: '**', pathMatch: 'full', redirectTo: '' },
   { path: 'admin/pedidos', component: AdminPedidosComponent, canActivate: [AuthGuard, AdminGuard] }, // Solo admin
   { path: 'admin/usuarios', component: AdminUsuariosComponent, canActivate: [AuthGuard, AdminGuard] }, // Solo admin
-  { path: 'mis-pedidos', component: MisPedidosComponent, canActivate: [AuthGuard] }
+  { path: 'mis-pedidos', component: MisPedidosComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];

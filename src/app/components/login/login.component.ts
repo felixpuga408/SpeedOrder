@@ -29,7 +29,7 @@ export class LoginComponent {
         console.log('Inicio de sesión exitoso', res);
         this.error = ''; // Limpiar el error si el login es exitoso
         // Aquí puedes redirigir a donde quieras después de un inicio de sesión exitoso
-        this.router.navigate(['/home']); // Redirige al home después de login exitoso
+       
       },
       error: (err) => {
         this.error = 'Credenciales incorrectas, por favor revisa tus datos.';

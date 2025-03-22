@@ -1,7 +1,9 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';  // Importamos Router para la redirección
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'https://67bd5cac321b883e790c2567.mockapi.io/users';  // URL de la API
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Verificar si el usuario está autenticado
   estaAutenticado(): boolean {
@@ -19,17 +21,26 @@ export class AuthService {
     return false;
   }
 
-  // Iniciar sesión y verificar contra la API
   iniciarSesion(email: string, password: string): Observable<any> {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map(users => {
         const usuario = users.find(user => user.email === email && user.password === password);
         if (usuario) {
-          console.log('Usuario encontrado:', usuario);  // Verifica la estructura del usuario aquí
-          if (typeof window !== 'undefined') {  // Verificamos si estamos en el navegador
-            localStorage.setItem('token', 'user-auth-token');
-            localStorage.setItem('usuario', JSON.stringify(usuario));  // Guardamos los detalles del usuario
+          // Guardamos el usuario y el token en localStorage
+          localStorage.setItem('token', 'user-auth-token');
+          localStorage.setItem('usuario', JSON.stringify(usuario));
+  
+          // Redirigir según el rol del usuario
+          if (usuario.rol === 'admin') {
+            this.router.navigate(['/admin/pedidos']).then(() => {
+              window.location.reload();  // Recargar la página después de la navegación
+            });
+          } else {
+            this.router.navigate(['/']).then(() => {
+              window.location.reload();  // Recargar la página después de la navegación
+            });
           }
+  
           return usuario;
         } else {
           throw new Error('Credenciales incorrectas');
@@ -40,6 +51,7 @@ export class AuthService {
       })
     );
   }
+  
 
   // Registrar un nuevo usuario
   registrarUsuario(nombre: string, email: string, password: string, telefono: number): Observable<any> {
@@ -47,12 +59,12 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, nuevoUsuario);
   }
 
-  // Cerrar sesión
   cerrarSesion(): void {
     if (typeof window !== 'undefined') {  // Verificamos si estamos en el navegador
       localStorage.removeItem('token');
       localStorage.removeItem('usuario');
     }
+    window.location.reload(); // Recargamos la página después de cerrar sesión
   }
 
   // Obtener los detalles del usuario desde localStorage

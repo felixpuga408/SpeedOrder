@@ -1,4 +1,70 @@
-.navbar{
-    background-color: #08cd2c;
+/* Navbar styling */
+.navbar {
+  background-image: url('/img/bar.png'); /* Ruta de la imagen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 110px;
+}
 
+/* Item de la barra de navegación */
+.navbar-nav .nav-item {
+  position: relative;
+  margin-left: 10px;
+}
+
+/* Estilo del badge de notificaciones */
+.badge {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+  border-radius: 50%;
+}
+
+/* Íconos */
+.fa-bell, .fa-shopping-cart {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Contenedor de las notificaciones */
+.navbar-nav {
+  position: relative;
+}
+
+/* Asegura que el ícono de la campana esté encima */
+.nav-item.position-relative {
+  position: relative;
+  z-index: 9999; /* Asegura que el ícono de la campana esté encima */
+}
+
+/* Menú desplegable de las notificaciones */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 45px; /* Ajustamos la distancia de separación */
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 99999; /* Z-index alto para asegurar que esté por encima */
+  display: none; /* Inicialmente oculto */
+}
+
+/* Mostrar las notificaciones cuando sea necesario */
+.dropdown-menu.show {
+  display: block; /* Mostrar cuando 'mostrarNotificaciones' sea true */
+}
+
+/* Estilo de los elementos de las notificaciones */
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #239c18;
+}
+
+.dropdown-item:hover {
+  background-color: #78af84;
 }

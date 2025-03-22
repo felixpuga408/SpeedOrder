@@ -1,45 +1,68 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid">
-    <img [src]="'/img/logo.jpeg'" width="120" height="50">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- Home Link -->
-        <li class="nav-item">
+        <!-- Solo mostramos Home a los usuarios normales -->
+        <li *ngIf="!esAdmin" class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
-        
-        <!-- Mostrar solo si el usuario no está autenticado -->
+
         <li *ngIf="!authService.estaAutenticado()" class="nav-item">
           <a class="nav-link" routerLink="/login">Sign In</a>
         </li>
 
-        <!-- Mostrar si el usuario está autenticado y no es admin -->
-        <li *ngIf="authService.estaAutenticado() && !authService.esAdmin()" class="nav-item">
+        <!-- Mis Pedidos solo si es usuario normal -->
+        <li *ngIf="authService.estaAutenticado() && !esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/mis-pedidos">Mis Pedidos</a>
         </li>
 
-        <!-- Mostrar si el usuario es admin -->
-        <li *ngIf="authService.estaAutenticado() && authService.esAdmin()" class="nav-item">
+        <!-- Ver Pedidos solo si es admin -->
+        <li *ngIf="authService.estaAutenticado() && esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/admin/pedidos">Ver Pedidos</a>
         </li>
 
-        <li *ngIf="authService.estaAutenticado() && authService.esAdmin()" class="nav-item">
+        <!-- Usuarios Registrados solo si es admin -->
+        <li *ngIf="authService.estaAutenticado() && esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/admin/usuarios">Usuarios Registrados</a>
         </li>
 
-        <!-- Cerrar sesión -->
-        <li *ngIf="authService.estaAutenticado()" class="nav-item">
-          <a class="nav-link" (click)="cerrarSesion()">Cerrar Sesión</a>
+        <!-- Carrito solo si es usuario normal -->
+        <li *ngIf="!esAdmin && authService.estaAutenticado()" class="nav-item">
+          <a class="nav-link text-black" routerLink="/carrito">
+            <i class="fa fa-shopping-cart"></i>
+            (<span class="fw-bold">{{carritoService.cantidad()}}</span>)
+          </a>
         </li>
       </ul>
 
-      <!-- Icono del carrito de compras -->
-      <a class="nav-link text-black" routerLink="/carrito">
-        <i class="fa fa-shopping-cart"></i>(<samp class="fw-bold">{{carritoService.cantidad()}}</samp>)
-      </a>
+      <!-- Alineación a la derecha -->
+      <ul class="navbar-nav ms-auto d-flex justify-content-end"> <!-- Añadimos d-flex justify-content-end -->
+        <!-- Botón Cerrar Sesión -->
+        <li *ngIf="authService.estaAutenticado()" class="nav-item">
+          <a class="nav-link" (click)="cerrarSesion()">Cerrar Sesión</a>
+        </li>
+
+        <!-- Icono de la campana con el contador de notificaciones solo si el usuario es admin -->
+        <li *ngIf="esAdmin" class="nav-item position-relative">
+          <a class="nav-link position-relative" (click)="toggleNotificaciones($event)">
+            <i class="fa fa-bell"></i>
+            <span *ngIf="nuevasNotificaciones > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+              {{ nuevasNotificaciones }}
+            </span>
+          </a>
+          <ul [ngClass]="{'show': mostrarNotificaciones}" class="dropdown-menu dropdown-menu-end">
+            <li *ngFor="let notificacion of notificaciones" class="dropdown-item">
+              {{ notificacion.mensaje }}
+            </li>
+            <li *ngIf="notificaciones.length === 0" class="dropdown-item">No hay nuevas notificaciones.</li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
