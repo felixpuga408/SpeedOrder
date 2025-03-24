@@ -60,18 +60,22 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  // Cargar las notificaciones solo si el usuario es admin
   cargarNotificaciones() {
-    if (this.esAdmin) {  // Solo cargamos las notificaciones si el usuario es admin
+    if (this.esAdmin) { // Solo cargamos las notificaciones si es admin
       console.log('Cargando notificaciones para admin');
       this.pedidoService.obtenerPedidos().subscribe(pedidos => {
-        this.notificaciones = pedidos.map(pedido => ({
-          mensaje: `Nuevo pedido de ${pedido.cliente}`
-        }));
+        this.notificaciones = pedidos
+          .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()) // Ordena por fecha descendente
+          .map(pedido => ({
+            mensaje: `Nuevo pedido de ${pedido.cliente}`
+          }));
+  
         this.nuevasNotificaciones = this.notificaciones.length;
         console.log('Notificaciones cargadas:', this.notificaciones);  // Verificar que las notificaciones están cargadas correctamente
-        this.cdr.detectChanges();
+        
+        this.cdr.detectChanges(); // Forzar la actualización de la vista
       });
     }
   }
+  
 }
