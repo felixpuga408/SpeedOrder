@@ -7,7 +7,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- Solo mostramos Home a los usuarios normales -->
+        
         <li *ngIf="!esAdmin" class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
@@ -16,22 +16,22 @@
           <a class="nav-link" routerLink="/login">Sign In</a>
         </li>
 
-        <!-- Mis Pedidos solo si es usuario normal -->
+        
         <li *ngIf="authService.estaAutenticado() && !esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/mis-pedidos">Mis Pedidos</a>
         </li>
 
-        <!-- Ver Pedidos solo si es admin -->
+        
         <li *ngIf="authService.estaAutenticado() && esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/admin/pedidos">Ver Pedidos</a>
         </li>
 
-        <!-- Usuarios Registrados solo si es admin -->
+        
         <li *ngIf="authService.estaAutenticado() && esAdmin" class="nav-item">
           <a class="nav-link" routerLink="/admin/usuarios">Usuarios Registrados</a>
         </li>
 
-        <!-- Carrito solo si es usuario normal -->
+       
         <li *ngIf="!esAdmin && authService.estaAutenticado()" class="nav-item">
           <a class="nav-link text-black" routerLink="/carrito">
             <i class="fa fa-shopping-cart"></i>
@@ -40,14 +40,14 @@
         </li>
       </ul>
 
-      <!-- Alineación a la derecha -->
-      <ul class="navbar-nav ms-auto d-flex justify-content-end"> <!-- Añadimos d-flex justify-content-end -->
-        <!-- Botón Cerrar Sesión -->
+    
+      <ul class="navbar-nav ms-auto d-flex justify-content-end"> 
+        
         <li *ngIf="authService.estaAutenticado()" class="nav-item">
           <a class="nav-link" (click)="cerrarSesion()">Cerrar Sesión</a>
         </li>
 
-        <!-- Icono de la campana con el contador de notificaciones solo si el usuario es admin -->
+        
         <li *ngIf="esAdmin" class="nav-item position-relative">
           <a class="nav-link position-relative" (click)="toggleNotificaciones($event)">
             <i class="fa fa-bell"></i>

@@ -11,9 +11,9 @@ export class AdminGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (typeof window !== 'undefined' && this.authService.estaAutenticado() && this.authService.esAdmin()) {
-      return true;  // Permite el acceso si el usuario es admin
+      return true;  
     } else {
-      this.router.navigate(['/']);  // Redirige a home si no es admin
+      this.router.navigate(['/']);  
       return false;
     }
   }

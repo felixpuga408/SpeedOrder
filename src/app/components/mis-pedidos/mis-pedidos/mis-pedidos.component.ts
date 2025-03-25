@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { PedidoService } from '../../../core/services/pedido.service';  // Asegúrate de importar el servicio de pedidos
-import { AuthService } from '../../../core/services/auth.service';  // Importar AuthService para obtener el usuario
+import { PedidoService } from '../../../core/services/pedido.service'; 
+import { AuthService } from '../../../core/services/auth.service'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,20 +12,20 @@ import { FormsModule } from '@angular/forms';
 })
 export class MisPedidosComponent implements OnInit {
   public pedidoService = inject(PedidoService);
-  public authService = inject(AuthService);  // Inyectamos AuthService para obtener el usuario autenticado
+  public authService = inject(AuthService);  
   pedidos: any[] = [];
 
   ngOnInit(): void {
-    const usuario = this.authService.obtenerUsuario();  // Obtener el usuario autenticado
+    const usuario = this.authService.obtenerUsuario();  
     if (usuario) {
-      this.obtenerPedidos(usuario.nombre);  // Obtener los pedidos del usuario
+      this.obtenerPedidos(usuario.nombre);  
     }
   }
 
-  // Método para obtener los pedidos del usuario
+
   obtenerPedidos(nombreUsuario: string): void {
     this.pedidoService.obtenerPedidosPorUsuario(nombreUsuario).subscribe(pedidos => {
-      this.pedidos = pedidos;  // Asignamos los pedidos recuperados a la variable
+      this.pedidos = pedidos;  
     }, error => {
       console.error('Error al obtener los pedidos:', error);
     });

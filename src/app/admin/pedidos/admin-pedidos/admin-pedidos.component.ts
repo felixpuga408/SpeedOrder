@@ -26,7 +26,7 @@ export class AdminPedidosComponent implements OnInit {
         this.pedidos = data.map((pedido: any) => ({
           ...pedido,
           productosString: pedido.productos
-            ? pedido.productos.map((p: any) => p.nombre).join(', ') // Convertimos el array de productos en un string
+            ? pedido.productos.map((p: any) => p.nombre).join(', ') 
             : 'Sin productos'
         }));
       },

@@ -17,7 +17,7 @@
     <tbody>
       <tr *ngFor="let pedido of pedidos">
         <td>{{ pedido.id }}</td>
-        <td>{{ pedido.fecha | date }}</td> <!-- Formato de fecha -->
+        <td>{{ pedido.fecha | date }}</td> 
         <td>{{ pedido.estado }}</td>
         <td>${{ pedido.total }}</td>
         <td>

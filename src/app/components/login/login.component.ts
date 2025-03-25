@@ -16,8 +16,7 @@ export class LoginComponent {
   password: string = '';
   error: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {} // ✅ Se inyecta Router aquí
-
+  constructor(private authService: AuthService, private router: Router) {} 
   iniciarSesion() {
     if (!this.email || !this.password) {
       this.error = 'Debes ingresar un email y contraseña';
@@ -27,8 +26,8 @@ export class LoginComponent {
     this.authService.iniciarSesion(this.email, this.password).subscribe({
       next: (res) => {
         console.log('Inicio de sesión exitoso', res);
-        this.error = ''; // Limpiar el error si el login es exitoso
-        // Aquí puedes redirigir a donde quieras después de un inicio de sesión exitoso
+        this.error = ''; 
+        
        
       },
       error: (err) => {
@@ -39,6 +38,6 @@ export class LoginComponent {
   }
 
   irARegistro() {
-    this.router.navigate(['/register']); // ✅ Ahora sí funciona correctamente
+    this.router.navigate(['/register']); 
   }
 }

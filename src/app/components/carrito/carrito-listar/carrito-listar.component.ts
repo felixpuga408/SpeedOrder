@@ -2,9 +2,9 @@ import { CarritoService } from '../../../core/services/carrito.service';
 import { Carrito } from '../../../core/modelo/carrito';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';  // Asegúrate de importar AuthService
-import { Router } from '@angular/router';  // Asegúrate de importar Router
-import { HttpClient } from '@angular/common/http';  // Necesario para hacer la petición al API
+import { AuthService } from '../../../core/services/auth.service'; 
+import { Router } from '@angular/router';  
+import { HttpClient } from '@angular/common/http';  
 import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -20,12 +20,12 @@ export class CarritoListarComponent implements OnInit {
   public authService = inject(AuthService);
   public router = inject(Router);
   public http = inject(HttpClient);
-  public platformId: Object = inject(PLATFORM_ID); // Injectar el ID de la plataforma
+  public platformId: Object = inject(PLATFORM_ID); 
   listCarrito: Carrito[] = [];
 
   ngOnInit(): void {
     this.getListCarrito();
-    if (isPlatformBrowser(this.platformId)) {  // Verificamos si estamos en el navegador
+    if (isPlatformBrowser(this.platformId)) {  
       this.cargarBotonPayPal();
     }
   }
@@ -85,7 +85,7 @@ export class CarritoListarComponent implements OnInit {
   }
 
   cargarBotonPayPal() {
-    // Ahora esto solo se ejecuta en el navegador
+    
     if (typeof window !== 'undefined') {
       (window as any).paypal.Buttons({
         createOrder: (data: any, actions: any) => {

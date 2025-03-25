@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CarritoService } from '../../core/services/carrito.service';
 import { AuthService } from '../../core/services/auth.service';
 import { PedidoService } from '../../core/services/pedido.service';
-import { Router } from '@angular/router';  // Necesitamos Router para la redirección
+import { Router } from '@angular/router';  
 
 @Component({
   selector: 'app-header',
@@ -23,57 +23,55 @@ export class HeaderComponent implements OnInit {
   notificaciones: { mensaje: string }[] = [];
   mostrarNotificaciones: boolean = false;
   nuevasNotificaciones: number = 0;
-  esAdmin: boolean = false;  // Variable para verificar si el usuario es admin
-
+  esAdmin: boolean = false; 
   constructor() {}
 
   ngOnInit() {
-    // Verificamos si el usuario es admin al cargar el componente
+    
     this.esAdmin = this.authService.esAdmin();
     console.log('Es admin:', this.esAdmin); 
     this.cargarNotificaciones();
   }
 
-  // Método para cerrar sesión
+
   cerrarSesion() {
-    this.authService.cerrarSesion();  // Llamamos al método de cerrar sesión
-    this.router.navigate(['/login']);  // Redirigimos a la página de login después de cerrar sesión
+    this.authService.cerrarSesion();  
+    this.router.navigate(['/login']);  
   }
 
-  // Método para alternar la visibilidad del menú de notificaciones
+  
   toggleNotificaciones(event: Event) {
-    event.stopPropagation();  // Evita que el clic en el icono cierre el menú inmediatamente
-    this.mostrarNotificaciones = !this.mostrarNotificaciones;  // Alternar el estado del menú
-    this.cdr.detectChanges();  // Forzamos la actualización de la vista
-    console.log('Mostrar notificaciones:', this.mostrarNotificaciones);  // Verifica si el valor de mostrarNotificaciones cambia
-  }
-
-  // Escuchar los clics en cualquier parte de la pantalla para cerrar el menú
+    event.stopPropagation();  
+    this.mostrarNotificaciones = !this.mostrarNotificaciones; 
+    this.cdr.detectChanges();  
+    console.log('Mostrar notificaciones:', this.mostrarNotificaciones);  
+    }
+ 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const isDropdownClicked = (event.target as HTMLElement).closest('.dropdown-menu') !== null;
     const isBellIconClicked = (event.target as HTMLElement).closest('.fa-bell') !== null;
 
-    // Si se hace clic fuera del dropdown y campana, cerrar el menú
+
     if (!isDropdownClicked && !isBellIconClicked) {
       this.mostrarNotificaciones = false;
     }
   }
 
   cargarNotificaciones() {
-    if (this.esAdmin) { // Solo cargamos las notificaciones si es admin
+    if (this.esAdmin) { 
       console.log('Cargando notificaciones para admin');
       this.pedidoService.obtenerPedidos().subscribe(pedidos => {
         this.notificaciones = pedidos
-          .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()) // Ordena por fecha descendente
+          .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()) 
           .map(pedido => ({
             mensaje: `Nuevo pedido de ${pedido.cliente}`
           }));
   
         this.nuevasNotificaciones = this.notificaciones.length;
-        console.log('Notificaciones cargadas:', this.notificaciones);  // Verificar que las notificaciones están cargadas correctamente
+        console.log('Notificaciones cargadas:', this.notificaciones);  
         
-        this.cdr.detectChanges(); // Forzar la actualización de la vista
+        this.cdr.detectChanges(); 
       });
     }
   }

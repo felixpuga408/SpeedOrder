@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  nombre = ''; // ✅ Agregado
+  nombre = ''; 
   email = '';
   password = '';
-  telefono: number | null = null; // ✅ Cambiado a number
+  telefono: number | null = null; 
   error = '';
 
   constructor(private router: Router, private http: HttpClient) {}
@@ -27,17 +27,17 @@ export class RegisterComponent {
     }
 
     const nuevoUsuario = {
-      nombre: this.nombre, // ✅ Agregado
+      nombre: this.nombre, 
       email: this.email,
       password: this.password,
-      telefono: this.telefono, // ✅ Ahora es número
-      rol: 'usuario' // ✅ Siempre será "usuario"
+      telefono: this.telefono, 
+      rol: 'usuario' 
     };
     
     this.http.post('https://67bd5cac321b883e790c2567.mockapi.io/users', nuevoUsuario).subscribe({
       next: () => {
         console.log('Usuario registrado correctamente');
-        this.router.navigate(['/login']); // Redirige al login
+        this.router.navigate(['/login']); 
       },
       error: (err) => {
         console.error('Error en el registro:', err);
