@@ -1,6 +1,6 @@
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
 <h2>Gestión de Usuarios</h2>
 <p *ngIf="error" class="error">{{ error }}</p>
 
@@ -27,7 +27,10 @@
           <option value="admin">Administrador</option>
         </select>
       </td>
-      <td><button (click)="actualizarUsuario(usuario)">Actualizar</button></td>
+      <td>
+        <button (click)="actualizarUsuario(usuario)">Actualizar</button>
+        <button class="ms-2" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
+      </td>
     </tr>
   </tbody>
 </table>

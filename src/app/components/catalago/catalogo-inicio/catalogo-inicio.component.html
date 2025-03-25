@@ -5,13 +5,23 @@
         @for (item of productos; track item.id) {
             <div class="col-sm-3 mt-1">
                 <div class="card">
-                    <img [src]="'img/' + item.imagen" />
+                    <img [src]="'img/' + item.imagen" class="card-img-top" alt="{{item.nombre}}" />
                     <div class="card-body">
-                        
                         <p class="fw-bold">{{item.nombre}}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <button (click)="agregarProducto(item)" type="button" class="btn btn-sm btn-dark">
-                                <i class="fa fa-shopping-cart"></i>Agregar
+                            <button 
+                                (click)="agregarProducto(item)" 
+                                type="button" 
+                                class="btn btn-sm btn-dark">
+                                <i class="fa fa-shopping-cart"></i> Agregar
+                            </button>
+                            <button 
+                                type="button" 
+                                class="btn btn-sm btn-primary"
+                                (click)="verDetalles(item)" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#detalleModal">
+                                Ver detalles
                             </button>
                             <small class="fw-bold">${{item.precio}}</small>
                         </div>
@@ -20,4 +30,27 @@
             </div>
         }
     </div>
+</div>
+
+
+<div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detalleModalLabel">{{ productoSeleccionado?.nombre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img [src]="'img/' + productoSeleccionado?.imagen" class="img-fluid mb-3" alt="Imagen del producto">
+        <p><strong>Precio:</strong> ${{ productoSeleccionado?.precio }}</p>
+        <p><strong>Descripción:</strong> {{ productoSeleccionado?.descripcion }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button *ngIf="usuarioEnSesion" (click)="agregarProducto(productoSeleccionado!)" class="btn btn-dark">
+          <i class="fa fa-shopping-cart"></i> Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

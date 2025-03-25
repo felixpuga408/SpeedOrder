@@ -42,4 +42,19 @@ export class AdminUsuariosComponent implements OnInit {
         }
       });
   }
+
+  eliminarUsuario(id: number) {
+    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+      this.http.delete(`https://67bd5cac321b883e790c2567.mockapi.io/users/${id}`).subscribe({
+        next: () => {
+          console.log('Usuario eliminado');
+          // Eliminar el usuario de la lista sin necesidad de recargar la página
+          this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
+        },
+        error: () => {
+          this.error = 'Error al eliminar usuario';
+        }
+      });
+    }
+  }
 }

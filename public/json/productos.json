@@ -1,10 +1,11 @@
 [
-  { "id": 1, "nombre": "Doritos Rojos", "precio": 25 , "imagen": "d.jpeg"},
-  { "id": 2, "nombre": "Chilaquiles", "precio": 55 , "imagen": "ch.png"},
-  { "id": 3, "nombre": "Hamburguesa", "precio": 80 , "imagen": "ha.png"},
-  { "id": 4, "nombre": "Bonneless", "precio": 82.50 , "imagen": "bo.png"},
-  { "id": 5, "nombre": "cafe", "precio": 34.80 , "imagen": "1.jpg"},
-  { "id": 6, "nombre": "cafe 2", "precio": 12.00 , "imagen": "2.jpg"},
-  { "id": 7, "nombre": "cafe 3", "precio": 21.99 , "imagen": "3.jpg"},
-  { "id": 8, "nombre": "cafe 4", "precio": 34.00 , "imagen": "4.jpg"}
+  { "id": 1, "nombre": "Doritos Rojos", "precio": 25, "imagen": "d.jpeg", "descripcion": "Snack crujiente y sabroso con sabor a chile." },
+  { "id": 2, "nombre": "Chilaquiles", "precio": 55, "imagen": "ch.png", "descripcion": "Plato típico mexicano con tortillas fritas, salsa y crema." },
+  { "id": 3, "nombre": "Hamburguesa", "precio": 80, "imagen": "ha.png", "descripcion": "Deliciosa hamburguesa con carne de res, lechuga y tomate." },
+  { "id": 4, "nombre": "Bonneless", "precio": 82.50, "imagen": "bo.png", "descripcion": "Pechuga de pollo sin hueso empanizada y frita." },
+  { "id": 5, "nombre": "cafe", "precio": 34.80, "imagen": "1.jpg", "descripcion": "Café recién hecho, ideal para acompañar tu día." },
+  { "id": 6, "nombre": "cafe 2", "precio": 12.00, "imagen": "2.jpg", "descripcion": "Café suave y aromático, perfecto para la tarde." },
+  { "id": 7, "nombre": "cafe 3", "precio": 21.99, "imagen": "3.jpg", "descripcion": "Café robusto con un toque de amargor, ideal para los amantes del café fuerte." },
+  { "id": 8, "nombre": "cafe 4", "precio": 34.00, "imagen": "4.jpg", "descripcion": "Café con un toque dulce y suave, ideal para disfrutar en cualquier momento." }
 ]
+

@@ -3,33 +3,33 @@
 <br />
 
 <div class="register-container">
+  <h2>Registro</h2>
+  <form (submit)="registrar()">
+    <label>Nombre:</label>
+    <input type="text" [(ngModel)]="nombre" name="nombre" required />
+
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Por favor ingresa un correo electrónico válido" />
+
+    <label>Contraseña:</label>
+    <input type="password" [(ngModel)]="password" name="password" required />
+
     
-    <h2>Registro</h2>
-    <form (submit)="registrar()">
-      <label>Nombre:</label>
-      <input type="text" [(ngModel)]="nombre" name="nombre" required />
     
-      <label>Email:</label>
-      <input type="email" [(ngModel)]="email" name="email" required />
+    <label>Teléfono:</label>
+<input type="tel" [(ngModel)]="telefono" name="telefono" required pattern="^[0-9]{10}$" maxlength="10" minlength="10" title="Solo números y 10 dígitos" />
+
+
     
-      <label>Contraseña:</label>
-      <input type="password" [(ngModel)]="password" name="password" required />
+    <input type="hidden" [(ngModel)]="rol" name="rol" value="usuario" />
+
+    <br />
+    <br />
     
-      <label>Teléfono:</label>
-      <input type="text" [(ngModel)]="telefono" name="telefono" required />
-    
-      <label>Rol:</label>
-      <input type="text" [value]="'usuario'" disabled /> 
-      <br />
-      <br />
-      
-    
-      <button type="submit">Registrarse</button>
-      <hr />
-      <button type="button" (click)="irALogin()">Ya tengo cuenta</button>
-    
-      <p *ngIf="error" class="error-message">{{ error }}</p>
-    </form>
-    
-  </div>
-  
+    <button type="submit">Registrarse</button>
+    <hr />
+    <button type="button" (click)="irALogin()">Ya tengo cuenta</button>
+
+    <p *ngIf="error" class="error-message">{{ error }}</p>
+  </form>
+</div>
